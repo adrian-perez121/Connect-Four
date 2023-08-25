@@ -41,7 +41,7 @@ describe ConnectFour do
       before do
         game_black.add_black(5)
       end
-      it 'the symbol falls on top of the occupying square' do
+      it 'the symbol falls on top of the square being occupied' do
         game_black.add_black(5)
         square = game_black.board[row][column]
         expect(square).to eq('⚫')
