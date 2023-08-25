@@ -37,4 +37,16 @@ class ConnectFour
     end
     board[row][column] = '⚫'
   end
+
+  def add_white(column)
+    row = 5
+    square = board[row][column]
+    until square.nil?
+      row -= 1
+      break out_bounds_message if row == -1
+
+      square = board[row][column]
+    end
+    board[row][column] = '⚪'
+  end
 end
