@@ -26,7 +26,7 @@ class ConnectFour
     puts ' 0  1  2  3  4  5  6 ' # The footer of the game
   end
 
-  def add_black(column)
+  def add_full(column)
     row = 5
     square = board[row][column]
     until square == ' '
@@ -38,7 +38,7 @@ class ConnectFour
     board[row][column] = '♦'
   end
 
-  def add_white(column)
+  def add_empty(column)
     row = 5
     square = board[row][column]
     until square == ' '
