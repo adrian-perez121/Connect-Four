@@ -172,4 +172,45 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#check_vertical_streak' do
+    # We are always going to be calling from the highest when checking vertically 
+    let(:symbol) { '♦' }
+    context 'when there is four ♦ in a column' do
+      subject(:game_streak) { described_class.new }
+      let(:row) { 2 }
+      let(:column) { 0 }
+      before do
+        4.times { game_streak.add_full(0) }
+      end
+
+      it 'returns 4' do
+        expect(game_streak.check_vertical_streak(row, column, symbol)).to eq(4)
+      end
+    end
+
+    context 'when there are three ♦ and two ♢ under in a column' do
+      subject(:game_streak) { described_class.new }
+      let(:row) { 1 }
+      let(:column) { 0 }
+      before do
+        2.times { game_streak.add_empty(0) }
+        3.times { game_streak.add_full(0) }
+      end
+      it 'returns 3' do
+        expect(game_streak.check_vertical_streak(row, column, symbol)).to eq(3)
+      end
+    end
+
+    context 'when ehere is one ♦ in a column' do
+      subject(:game_streak) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 0 }
+      before { game_streak.add_full(0) }
+
+      it 'returns 1' do
+        expect(game_streak.check_vertical_streak(row, column, symbol)).to eq(1)
+      end
+    end
+  end
 end
