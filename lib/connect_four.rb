@@ -62,4 +62,15 @@ class ConnectFour
 
     total_streak
   end
+
+  def check_vertical_streak(row, column, symbol)
+    square = board[row][column]
+    # Base Case
+    return 0 if square != symbol
+
+    bottom = row != 5 ? check_vertical_streak(row + 1, column, symbol) : 0
+
+    total_streak = bottom + 1
+    total_streak
+  end
 end
