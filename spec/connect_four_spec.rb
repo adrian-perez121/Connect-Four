@@ -30,7 +30,7 @@ describe ConnectFour do
       it 'symbol reaches the bottom' do
         game_black.add_black(5)
         square = game_black.board[row][column]
-        expect(square).to eq('⚫')
+        expect(square).to eq('♦')
       end
     end
 
@@ -44,7 +44,7 @@ describe ConnectFour do
       it 'the symbol falls on top of the square being occupied' do
         game_black.add_black(5)
         square = game_black.board[row][column]
-        expect(square).to eq('⚫')
+        expect(square).to eq('♦')
       end
     end
   
@@ -71,7 +71,7 @@ describe ConnectFour do
       it 'reaches the bottom' do
         game_white.add_white(3)
         square = game_white.board[row][column]
-        expect(square).to eq('⚪')
+        expect(square).to eq('♢')
       end
     end
 
@@ -86,7 +86,7 @@ describe ConnectFour do
       it 'symbol falls on top of the square being occupied' do
         game_white.add_white(3)
         square = game_white.board[row][column]
-        expect(square).to eq('⚪')
+        expect(square).to eq('♢')
       end
     end
 
