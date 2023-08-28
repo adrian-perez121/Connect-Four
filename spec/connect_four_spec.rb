@@ -103,4 +103,73 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#check_horizontal_streak' do
+    context 'when there is three ♦ in a row and called from the end' do
+      # End would mean the ♦ placed farthest to the right
+
+      subject(:game_streak) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 2 }
+      let(:symbol) { '♦' }
+      before do
+        game_streak.add_full(0)
+        game_streak.add_full(1)
+        game_streak.add_full(2)
+      end
+
+      it 'returns 3' do
+        expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(3)
+      end
+    end
+
+    context 'when there is four ♦ in a row and called from the middle' do
+      subject(:game_streak) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 1 }
+      let(:symbol) { '♦' }
+      before do
+        game_streak.add_full(0)
+        game_streak.add_full(1)
+        game_streak.add_full(2)
+        game_streak.add_full(3)
+      end
+      it 'returns 4' do
+        expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(4)
+      end
+    end
+
+    context 'when there is five ♦ in a row and called from the beginning of the board' do
+      # Beginning of the board is (5, 0)
+      subject(:game_streak) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 0 }
+      let(:symbol) { '♦' }
+      before do
+        game_streak.add_full(0)
+        game_streak.add_full(1)
+        game_streak.add_full(2)
+        game_streak.add_full(3)
+        game_streak.add_full(4)
+      end
+      it 'returns 5' do
+        expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(5)
+      end
+    end
+    context 'when there is three ♦ and one ♢ in a row' do
+      subject(:game_streak) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 2 }
+      let(:symbol) { '♦' }
+      before do
+        game_streak.add_full(0)
+        game_streak.add_full(1)
+        game_streak.add_full(2)
+        game_streak.add_empty(3)
+      end
+      it 'returns 3' do
+        expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(3)
+      end
+    end
+  end
 end
