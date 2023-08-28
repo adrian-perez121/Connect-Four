@@ -49,4 +49,17 @@ class ConnectFour
     end
     board[row][column] = '♢'
   end
+
+  def check_horizontal_streak(row, column, symbol, prev_column = nil)
+    square = board[row][column]
+    # Base Case
+    return 0 if square != symbol
+
+    left = column != 0 && prev_column != column - 1 ? check_horizontal_streak(row, column - 1, symbol, column) : 0
+    right = column != 6 && prev_column != column + 1 ? check_horizontal_streak(row, column + 1, symbol, column) : 0
+
+    total_streak = left + right + 1
+
+    total_streak
+  end
 end
