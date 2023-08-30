@@ -221,16 +221,14 @@ describe ConnectFour do
   # For diaganol cases there is going to have to be two checks the symbols going up and down
   describe '#check_diagonal_streak_up' do
     context 'when there are four ♦ going up diagonaly' do
-      subject(:game_diagonal) { described_class.new }
+      subject(:game_diagonal_four) { described_class.new }
       let(:symbol) { '♦' }
       before do
-        game_diagonal.add_full(0)
-        game_diagonal.add_empty(1)
-        game_diagonal.add_full(1)
-        2.times { game_diagonal.add_empty(2) }
-        game_diagonal.add_full(2)
-        3.times { game_diagonal.add_empty(3) }
-        game_diagonal.add_full(3)
+        game_diagonal_four.board[5][0] = '♦'
+        game_diagonal_four.board[4][1] = '♦'
+        game_diagonal_four.board[3][2] = '♦'
+        game_diagonal_four.board[2][3] = '♦'
+
       end
 
       context 'and called in the beginning' do
@@ -238,7 +236,7 @@ describe ConnectFour do
         let(:column) { 0 }
 
         it 'returns 4' do
-          expect(game_diagonal.check_diagonal_streak_up(row, column, symbol)).to eq(4)
+          expect(game_diagonal_four.check_diagonal_streak_up(row, column, symbol)).to eq(4)
         end
       end
 
@@ -247,7 +245,7 @@ describe ConnectFour do
         let(:column) { 1 }
 
         it 'returns 4' do
-          expect(game_diagonal.check_diagonal_streak_up(row, column, symbol)).to eq(4)
+          expect(game_diagonal_four.check_diagonal_streak_up(row, column, symbol)).to eq(4)
         end
       end
 
@@ -257,7 +255,7 @@ describe ConnectFour do
         let(:column) { 3 }
 
         it 'returns 4' do
-          expect(game_diagonal.check_diagonal_streak_up(row, column, symbol)).to eq(4)
+          expect(game_diagonal_four.check_diagonal_streak_up(row, column, symbol)).to eq(4)
         end
       end
 
@@ -268,13 +266,10 @@ describe ConnectFour do
         let(:column) { 0 }
 
         before do
-          game_diagonal_three.add_full(0)
-          game_diagonal_three.add_empty(1)
-          game_diagonal_three.add_full(1)
-          2.times { game_diagonal_three.add_empty(2) }
-          game_diagonal_three.add_full(2)
-          3.times { game_diagonal_three.add_empty(3) }
-          game_diagonal_three.add_empty(3)
+          game_diagonal_three.board[5][0] = '♦'
+          game_diagonal_three.board[4][1] = '♦'
+          game_diagonal_three.board[3][2] = '♦'
+          game_diagonal_three.board[2][3] = '♢'
         end
 
         it 'returns 3' do
