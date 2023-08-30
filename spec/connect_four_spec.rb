@@ -113,9 +113,9 @@ describe ConnectFour do
       let(:column) { 2 }
       let(:symbol) { '♦' }
       before do
-        game_streak.add_full(0)
-        game_streak.add_full(1)
-        game_streak.add_full(2)
+        game_streak.board[5][2] = '♦'
+        game_streak.board[5][1] = '♦'
+        game_streak.board[5][3] = '♦'
       end
 
       it 'returns 3' do
@@ -129,10 +129,10 @@ describe ConnectFour do
       let(:column) { 1 }
       let(:symbol) { '♦' }
       before do
-        game_streak.add_full(0)
-        game_streak.add_full(1)
-        game_streak.add_full(2)
-        game_streak.add_full(3)
+        game_streak.board[5][2] = '♦'
+        game_streak.board[5][1] = '♦'
+        game_streak.board[5][3] = '♦'
+        game_streak.board[5][4] = '♦'
       end
       it 'returns 4' do
         expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(4)
@@ -146,12 +146,13 @@ describe ConnectFour do
       let(:column) { 0 }
       let(:symbol) { '♦' }
       before do
-        game_streak.add_full(0)
-        game_streak.add_full(1)
-        game_streak.add_full(2)
-        game_streak.add_full(3)
-        game_streak.add_full(4)
+        game_streak.board[5][2] = '♦'
+        game_streak.board[5][1] = '♦'
+        game_streak.board[5][3] = '♦'
+        game_streak.board[5][4] = '♦'
+        game_streak.board[5][0] = '♦'
       end
+
       it 'returns 5' do
         expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(5)
       end
@@ -162,10 +163,10 @@ describe ConnectFour do
       let(:column) { 2 }
       let(:symbol) { '♦' }
       before do
-        game_streak.add_full(0)
-        game_streak.add_full(1)
-        game_streak.add_full(2)
-        game_streak.add_empty(3)
+        game_streak.board[5][2] = '♦'
+        game_streak.board[5][1] = '♦'
+        game_streak.board[5][3] = '♦'
+        game_streak.board[5][4] = '♢'
       end
       it 'returns 3' do
         expect(game_streak.check_horizontal_streak(row, column, symbol)).to eq(3)
