@@ -175,8 +175,11 @@ describe ConnectFour do
   end
 
   describe '#check_vertical_streak' do
-    # We are always going to be calling from the highest when checking vertically 
+    # We are always going to be calling from the highest when checking vertically
     let(:symbol) { '♦' }
+
+    # Symbols will stack on top of eachother
+    # Number of symbols in a column is the number of times the loop occurs
     context 'when there is four ♦ in a column' do
       subject(:game_streak) { described_class.new }
       let(:row) { 2 }
