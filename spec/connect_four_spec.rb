@@ -279,4 +279,62 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#check_diaganol_streak_down' do
+    context 'when there are four ♦ going down diagonaly' do
+      subject(:game_diagonal_four) { described_class.new }
+      let(:symbol) { '♦' }
+
+      before do
+        game_diagonal_four.board[2][0] = '♦'
+        game_diagonal_four.board[3][1] = '♦'
+        game_diagonal_four.board[4][2] = '♦'
+        game_diagonal_four.board[5][3] = '♦'
+      end
+
+      context 'and called from the beginning' do
+        let(:row) { 2 }
+        let(:column) { 0 }
+
+        xit 'returns 4' do
+          expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
+        end
+      end
+
+      context 'and called form the middle' do
+        let(:row) { 3 }
+        let(:column) { 1 }
+
+        xit 'returns 4' do
+          expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
+        end
+      end
+
+      context 'and called from the end' do
+        let(:row) { 5 }
+        let(:column) { 3 }
+
+        xit 'returns 4' do
+          expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
+        end
+      end
+    end
+
+    context 'where there are three ♦ and one ♢ at the end' do
+      subject(:game_diagonal_three) { described_class.new }
+      let(:symbol) { '♦' }
+      let(:row) { 2 }
+      let(:column) { 0 }
+      before do
+        game_diagonal_three.board[2][0] = '♦'
+        game_diagonal_three.board[3][1] = '♦'
+        game_diagonal_three.board[4][2] = '♦'
+        game_diagonal_three.board[5][3] = '♢'
+      end
+
+      xit 'returns 3' do
+        expect(game_diagonal_three.check_diaganol_streak_down(row, column, symbol)).to eq(3)
+      end
+    end
+  end
 end
