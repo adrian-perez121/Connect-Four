@@ -102,4 +102,8 @@ class ConnectFour
   def play_winner_message(symbol)
     puts "Congratulations, #{symbol} has won the game"
   end
+
+  def play_tie_message
+    puts 'Unfortunately, no one won this game'
+  end
 end
