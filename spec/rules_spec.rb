@@ -117,7 +117,7 @@ describe ConnectFour do
     end
   end
 
-  # For diaganol cases there is going to have to be two checks the symbols going up and down
+  # For diagonal cases there is going to have to be two checks the symbols going up and down
   describe '#check_diagonal_streak_up' do
     context 'when there are four ♦ going up diagonaly' do
       subject(:game_diagonal_four) { described_class.new }
@@ -178,7 +178,7 @@ describe ConnectFour do
     end
   end
 
-  describe '#check_diaganol_streak_down' do
+  describe '#check_diagonal_streak_down' do
     context 'when there are four ♦ going down diagonaly' do
       subject(:game_diagonal_four) { described_class.new }
       let(:symbol) { '♦' }
@@ -195,7 +195,7 @@ describe ConnectFour do
         let(:column) { 0 }
 
         it 'returns 4' do
-          expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
+          expect(game_diagonal_four.check_diagonal_streak_down(row, column, symbol)).to eq(4)
         end
       end
 
@@ -204,7 +204,7 @@ describe ConnectFour do
         let(:column) { 1 }
 
         it 'returns 4' do
-          expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
+          expect(game_diagonal_four.check_diagonal_streak_down(row, column, symbol)).to eq(4)
         end
       end
 
@@ -213,7 +213,7 @@ describe ConnectFour do
         let(:column) { 3 }
 
         it 'returns 4' do
-          expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
+          expect(game_diagonal_four.check_diagonal_streak_down(row, column, symbol)).to eq(4)
         end
       end
     end
@@ -231,7 +231,49 @@ describe ConnectFour do
       end
 
       it 'returns 3' do
-        expect(game_diagonal_three.check_diaganol_streak_down(row, column, symbol)).to eq(3)
+        expect(game_diagonal_three.check_diagonal_streak_down(row, column, symbol)).to eq(3)
+      end
+    end
+  end
+
+  describe '#four_in_row?' do
+    # The game_over conditions are the following
+    # - at least one four in a row
+    # - the board is full and the game is a tie
+    context 'when there is at least one streak of 4 or more' do
+      subject(:game_over) { described_class.new }
+      let(:symbol) { '♦' }
+      # Row and column are not important here as those two parameters are meant to be used with the previous streak methods
+      let(:dummy_row) { 0 }
+      let(:dummy_column) { 0 }
+
+      before do
+        allow(game_over).to receive(:check_diagonal_streak_down).and_return(4)
+        allow(game_over).to receive(:check_diagonal_streak_up).and_return(1)
+        allow(game_over).to receive(:check_horizontal_streak).and_return(3)
+        allow(game_over).to receive(:check_vertical_streak).and_return(2)
+      end
+
+      it 'returns true' do
+        expect(game_over.four_in_row?(dummy_row, dummy_column, symbol)).to be true
+      end
+    end
+
+    context 'when there are no streaks of 4 or more' do
+      subject(:game_over) { described_class.new }
+      let(:symbol) { '♦' }
+      # Row and column are not important here as those two parameters are meant to be used with the previous streak methods
+      let(:dummy_row) { 0 }
+      let(:dummy_column) { 0 }
+
+      before do
+        allow(game_over).to receive(:check_diagonal_streak_down).and_return(1)
+        allow(game_over).to receive(:check_diagonal_streak_up).and_return(1)
+        allow(game_over).to receive(:check_horizontal_streak).and_return(3)
+        allow(game_over).to receive(:check_vertical_streak).and_return(2)
+      end
+      it 'returns false' do
+        expect(game_over.four_in_row?(dummy_row, dummy_column, symbol)).to be false
       end
     end
   end
