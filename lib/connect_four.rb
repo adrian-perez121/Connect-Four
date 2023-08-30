@@ -14,6 +14,7 @@ class ConnectFour
 
   def initialize
     @board = create_board
+    @game_over = false
   end
 
   def show_board
