@@ -98,4 +98,8 @@ class ConnectFour
     total_streak = diag_backward + diag_forward + 1
     total_streak
   end
+
+  def play_winner_message(symbol)
+    puts "Congratulations, #{symbol} has won the game"
+  end
 end
