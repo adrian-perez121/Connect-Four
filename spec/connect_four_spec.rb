@@ -215,7 +215,7 @@ describe ConnectFour do
   end
 
   # For diaganol cases there is going to have to be two checks the symbols going up and down
-  describe '#check_diaganol_streak_up' do
+  describe '#check_diagonal_streak_up' do
     context 'when there are four ♦ going up diagonaly' do
       subject(:game_diagonal) { described_class.new }
       let(:symbol) { '♦' }
@@ -234,7 +234,7 @@ describe ConnectFour do
         let(:column) { 0 }
 
         it 'returns 4' do
-          expect(game_diagonal.check_diaganol_streak_up(row, column, symbol)).to eq(4)
+          expect(game_diagonal.check_diagonal_streak_up(row, column, symbol)).to eq(4)
         end
       end
 
@@ -243,7 +243,7 @@ describe ConnectFour do
         let(:column) { 1 }
 
         it 'returns 4' do
-          expect(game_diagonal.check_diaganol_streak_up(row, column, symbol)).to eq(4)
+          expect(game_diagonal.check_diagonal_streak_up(row, column, symbol)).to eq(4)
         end
       end
 
@@ -253,7 +253,7 @@ describe ConnectFour do
         let(:column) { 3 }
 
         it 'returns 4' do
-          expect(game_diagonal.check_diaganol_streak_up(row, column, symbol)).to eq(4)
+          expect(game_diagonal.check_diagonal_streak_up(row, column, symbol)).to eq(4)
         end
       end
 
@@ -274,7 +274,7 @@ describe ConnectFour do
         end
 
         it 'returns 3' do
-          expect(game_diagonal_three.check_diaganol_streak_up(row, column, symbol)).to eq(3)
+          expect(game_diagonal_three.check_diagonal_streak_up(row, column, symbol)).to eq(3)
         end
       end
     end
