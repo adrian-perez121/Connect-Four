@@ -194,7 +194,7 @@ describe ConnectFour do
         let(:row) { 2 }
         let(:column) { 0 }
 
-        xit 'returns 4' do
+        it 'returns 4' do
           expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
         end
       end
@@ -203,7 +203,7 @@ describe ConnectFour do
         let(:row) { 3 }
         let(:column) { 1 }
 
-        xit 'returns 4' do
+        it 'returns 4' do
           expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
         end
       end
@@ -212,7 +212,7 @@ describe ConnectFour do
         let(:row) { 5 }
         let(:column) { 3 }
 
-        xit 'returns 4' do
+        it 'returns 4' do
           expect(game_diagonal_four.check_diaganol_streak_down(row, column, symbol)).to eq(4)
         end
       end
@@ -230,7 +230,7 @@ describe ConnectFour do
         game_diagonal_three.board[5][3] = '♢'
       end
 
-      xit 'returns 3' do
+      it 'returns 3' do
         expect(game_diagonal_three.check_diaganol_streak_down(row, column, symbol)).to eq(3)
       end
     end
