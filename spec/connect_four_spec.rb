@@ -213,4 +213,70 @@ describe ConnectFour do
       end
     end
   end
+
+  # For diaganol cases there is going to have to be two checks the symbols going up and down
+  describe '#check_diaganol_streak_up' do
+    context 'when there are four ♦ going up diagonaly' do
+      subject(:game_diagonal) { described_class.new }
+      let(:symbol) { '♦' }
+      before do
+        game_diagonal.add_full(0)
+        game_diagonal.add_empty(1)
+        game_diagonal.add_full(1)
+        2.times { game_diagonal.add_empty(2) }
+        game_diagonal.add_full(2)
+        3.times { game_diagonal.add_empty(3) }
+        game_diagonal.add_full(3)
+      end
+
+      context 'and called in the beginning' do
+        let(:row) { 5 }
+        let(:column) { 0 }
+
+        it 'returns 4' do
+          expect(game_diagonal.check_diaganol_streak_up(row, column, symbol)).to eq(4)
+        end
+      end
+
+      context 'and called in the middle' do
+        let(:row) { 4 }
+        let(:column) { 1 }
+
+        it 'returns 4' do
+          expect(game_diagonal.check_diaganol_streak_up(row, column, symbol)).to eq(4)
+        end
+      end
+
+      context 'and called in the end' do
+        # End here is the ♦ farthest to the right
+        let(:row) { 2 }
+        let(:column) { 3 }
+
+        it 'returns 4' do
+          expect(game_diagonal.check_diaganol_streak_up(row, column, symbol)).to eq(4)
+        end
+      end
+
+      context 'when there are three ♦ going up diagnoal and one ♢ at the end' do
+        subject(:game_diagonal_three) { described_class.new }
+        let(:symbol) { '♦' }
+        let(:row) { 5 }
+        let(:column) { 0 }
+
+        before do
+          game_diagonal_three.add_full(0)
+          game_diagonal_three.add_empty(1)
+          game_diagonal_three.add_full(1)
+          2.times { game_diagonal_three.add_empty(2) }
+          game_diagonal_three.add_full(2)
+          3.times { game_diagonal_three.add_empty(3) }
+          game_diagonal_three.add_empty(3)
+        end
+
+        it 'returns 3' do
+          expect(game_diagonal_three.check_diaganol_streak_up(row, column, symbol)).to eq(3)
+        end
+      end
+    end
+  end
 end
