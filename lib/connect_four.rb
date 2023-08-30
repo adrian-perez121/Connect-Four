@@ -79,10 +79,10 @@ class ConnectFour
 
     return 0 if square != symbol
 
-    diag_down = column != 0 && row != 5 && prev_column != column - 1 ? check_diagonal_streak_up(row + 1, column - 1, symbol, column) : 0 
-    diag_up = column != 6 && row != 0 && prev_column != column + 1 ? check_diagonal_streak_up(row - 1, column + 1, symbol, column) : 0
+    diag_backward = column != 0 && row != 5 && prev_column != column - 1 ? check_diagonal_streak_up(row + 1, column - 1, symbol, column) : 0 
+    diag_forward = column != 6 && row != 0 && prev_column != column + 1 ? check_diagonal_streak_up(row - 1, column + 1, symbol, column) : 0
 
-    total_streak = diag_down + diag_up + 1
+    total_streak = diag_backward + diag_forward + 1
     total_streak
   end
 
@@ -91,10 +91,10 @@ class ConnectFour
 
     return 0 if square != symbol
 
-    diag_down = column != 6 && row != 5 && prev_column != column + 1 ? check_diaganol_streak_down(row + 1, column + 1, symbol, column) : 0
-    diag_up = column != 0 && row != 0 && prev_column != column - 1 ? check_diaganol_streak_down(row - 1, column - 1 , symbol, column) : 0 
+    diag_forward = column != 6 && row != 5 && prev_column != column + 1 ? check_diaganol_streak_down(row + 1, column + 1, symbol, column) : 0
+    diag_backward = column != 0 && row != 0 && prev_column != column - 1 ? check_diaganol_streak_down(row - 1, column - 1 , symbol, column) : 0 
 
-    total_streak = diag_down + diag_up + 1
+    total_streak = diag_backward + diag_forward + 1
     total_streak
   end
 end
