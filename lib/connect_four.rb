@@ -13,7 +13,6 @@ class ConnectFour
   end
 
   def initialize
-    puts 'Hello, and welcome to Connect Four!'
     @board = create_board
     @game_over = false
   end
@@ -38,7 +37,6 @@ class ConnectFour
       square = board[row][column]
     end
     board[row][column] = '♦'
-    decide_game_over(row, column, '♦')
   end
 
   def add_empty(column)
@@ -51,7 +49,6 @@ class ConnectFour
       square = board[row][column]
     end
     board[row][column] = '♢'
-    decide_game_over(row, column, '♢')
   end
 
   def player_input
