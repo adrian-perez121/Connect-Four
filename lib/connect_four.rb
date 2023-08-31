@@ -9,7 +9,7 @@ class ConnectFour
   end
 
   def out_bounds_message
-    puts 'You are out of bounds'
+    puts 'This column is full, try another column.'
   end
 
   def initialize
