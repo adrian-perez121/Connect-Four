@@ -124,7 +124,7 @@ describe ConnectFour do
         end
 
         it 'returns true' do
-          expect(game_full.board_full?).to be false
+          expect(game_full.board_full?).to be true
         end
       end
     end
