@@ -103,6 +103,10 @@ class ConnectFour
     check_vertical_streak(row, column, symbol) >= 4 || check_horizontal_streak(row, column, symbol) >= 4 || check_diagonal_streak_down(row, column, symbol) >= 4 || check_diagonal_streak_up(row, column, symbol) >= 4
   end
 
+  def board_full?
+    board[0].all? { squares != ' ' }
+  end
+
   def play_winner_message(symbol)
     puts "Congratulations, #{symbol} has won the game"
   end
