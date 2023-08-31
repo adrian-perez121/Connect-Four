@@ -27,11 +27,15 @@ describe ConnectFour do
       subject(:game_full) { described_class.new }
       let(:column) { 5 }
       let(:row) { 5 }
+      before { game_full.add_full(5) }
       it 'symbol reaches the bottom' do
-        game_full.add_full(5)
         square = game_full.board[row][column]
         expect(square).to eq('♦')
       end
+      it 'target coordinates should be set to location of symbol' do
+        expect(game_full.target_coordinates).to eq([row, column])
+      end
+
     end
 
     context 'when there is already a symbol occupying a square' do
@@ -40,14 +44,16 @@ describe ConnectFour do
       let(:row) { 4 }
       before do
         game_full.add_full(5)
+        game_full.add_full(5)
       end
       it 'the symbol falls on top of the square being occupied' do
-        game_full.add_full(5)
         square = game_full.board[row][column]
         expect(square).to eq('♦')
       end
+      it 'target coordinates should be set to location of symbol' do
+        expect(game_full.target_coordinates).to eq([row, column])
+      end
     end
-  
 
     context 'when there is no room left to add the symbol' do
       subject(:game_full) { described_class.new }
@@ -68,10 +74,13 @@ describe ConnectFour do
       subject(:game_empty) { described_class.new }
       let(:column) { 3 }
       let(:row) { 5 }
+      before { game_empty.add_empty(3) }
       it 'reaches the bottom' do
-        game_empty.add_empty(3)
         square = game_empty.board[row][column]
         expect(square).to eq('♢')
+      end
+      it 'target coordinates are at the location of the symbol' do
+        expect(game_empty.target_coordinates).to eq([row, column])
       end
     end
 
@@ -81,12 +90,16 @@ describe ConnectFour do
       let(:row) { 4 }
       before do
         game_empty.add_empty(3)
+        game_empty.add_empty(3)
       end
 
       it 'symbol falls on top of the square being occupied' do
-        game_empty.add_empty(3)
         square = game_empty.board[row][column]
         expect(square).to eq('♢')
+      end
+
+      it 'when there is already a symbol occupying a square' do
+        expect(game_empty.target_coordinates).to eq([row, column])
       end
     end
 
