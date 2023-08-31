@@ -37,6 +37,7 @@ class ConnectFour
       square = board[row][column]
     end
     board[row][column] = '♦'
+    decide_game_over(row, column, '♦')
   end
 
   def add_empty(column)
@@ -49,6 +50,7 @@ class ConnectFour
       square = board[row][column]
     end
     board[row][column] = '♢'
+    decide_game_over(row, column, '♢')
   end
 
   def player_input
