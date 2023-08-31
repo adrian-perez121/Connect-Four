@@ -2,7 +2,7 @@
 
 # ConnectFour Class
 class ConnectFour
-  attr_accessor :board
+  attr_accessor :board, :game_over
 
   def create_board
     Array.new(6) { Array.new(7, ' ') }
