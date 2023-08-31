@@ -107,7 +107,7 @@ class ConnectFour
     board[0].all? { |square| square != ' ' }
   end
 
-  def play_winner_message(symbol)
+  def play_winner_message(symbol = nil)
     puts "Congratulations, #{symbol} has won the game"
   end
 
