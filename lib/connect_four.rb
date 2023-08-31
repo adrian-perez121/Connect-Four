@@ -107,6 +107,16 @@ class ConnectFour
     board[0].all? { |square| square != ' ' }
   end
 
+  def decide_game_over(row, column, symbol)
+    # Parameters will need to be passed down for #four_in_row? to be used
+    if four_in_row?(row, column, symbol)
+      play_winner_message(symbol)
+    elsif board_full?
+      play_tie_message
+    end
+    self.game_over = four_in_row?(row, column, symbol) || board_full?
+  end
+
   def play_winner_message(symbol = nil)
     puts "Congratulations, #{symbol} has won the game"
   end
