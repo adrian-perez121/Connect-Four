@@ -104,7 +104,7 @@ class ConnectFour
   end
 
   def board_full?
-    board[0].all? { squares != ' ' }
+    board[0].all? { |square| square != ' ' }
   end
 
   def play_winner_message(symbol)
