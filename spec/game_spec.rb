@@ -129,4 +129,82 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#decide_game_over' do
+    let(:dummy_column) { 0 }
+    let(:dummy_row) { 5 }
+    let(:symbol) { '♦' }
+    context 'when there is a four in a row' do
+      subject(:game_win) { described_class.new }
+      before do
+        allow(game_win).to receive(:four_in_row?).and_return(true)
+        allow(game_win).to receive(:board_full?).and_return(false)
+      end
+      it 'calls the #play_winner_message and does not call #play_tie_message' do
+        expect(game_win).to receive(:play_winner_message)
+        expect(game_win).not_to receive(:play_tie_message)
+        game_win.decide_game_over(dummy_row, dummy_column, symbol)
+      end
+
+      it '@game_over to be true' do
+        game_win.decide_game_over(dummy_row, dummy_column, symbol)
+        expect(game_win.game_over).to be true
+      end
+    end
+
+    context 'when there is a tie' do
+      subject(:game_tie) { described_class.new }
+      before do
+        allow(game_tie).to receive(:four_in_row?).and_return(false)
+        allow(game_tie).to receive(:board_full?).and_return(true)
+      end
+      it 'does not call #play_winner_message and calls #play_tie_message' do
+        expect(game_tie).not_to receive(:play_winner_message)
+        expect(game_tie).to receive(:play_tie_message)
+        game_tie.decide_game_over(dummy_row, dummy_column, symbol)
+      end
+
+      it '@game_over to be true' do
+        game_tie.decide_game_over(dummy_row, dummy_column, symbol)
+        expect(game_tie.game_over).to be true
+      end
+    end
+
+    context 'when there is both' do
+      subject(:game_both) { described_class.new }
+      before do
+        allow(game_both).to receive(:four_in_row?).and_return(true)
+        allow(game_both).to receive(:board_full?).and_return(true)
+      end
+      it 'only calls on #play_winner_message' do
+        expect(game_both).to receive(:play_winner_message)
+        expect(game_both).not_to receive(:play_tie_message)
+        game_both.decide_game_over(dummy_row, dummy_column, symbol)
+      end
+
+      it '@game_over to be true' do
+        game_both.decide_game_over(dummy_row, dummy_column, symbol)
+        expect(game_both.game_over).to be true
+      end
+    end
+
+    context 'when there is neither' do
+      subject(:game_none) { described_class.new }
+      before do
+        allow(game_none).to receive(:four_in_row?).and_return(false)
+        allow(game_none).to receive(:board_full?).and_return(false)
+      end
+
+      it 'does not call any method' do
+        expect(game_none).not_to receive(:play_winner_message)
+        expect(game_none).not_to receive(:play_tie_message)
+        game_none.decide_game_over(dummy_row, dummy_column, symbol)
+      end
+
+      it '@game_over to be false' do
+        game_none.decide_game_over(dummy_row, dummy_column, symbol)
+        expect(game_none.game_over).to be false
+      end
+    end
+  end
 end
