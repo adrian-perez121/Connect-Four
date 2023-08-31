@@ -136,4 +136,18 @@ class ConnectFour
   def play_tie_message
     puts 'Unfortunately, no one won this game'
   end
+
+  def continue_playing?
+    puts 'Would you like to play again?[y/n]'
+    loop do
+      answer = gets.chomp
+      if answer == 'y'
+        return true
+      elsif answer == 'n'
+        return false
+      else
+        puts "Sorry I didn't get that, try again"
+      end
+    end
+  end
 end
