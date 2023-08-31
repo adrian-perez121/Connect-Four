@@ -51,6 +51,18 @@ class ConnectFour
     board[row][column] = '♢'
   end
 
+  def player_input
+    column = -1
+    until column.between?(0, 6)
+      puts 'Where would you like to put your peice?'
+      input = gets.chomp
+      next unless input.match(/^[0-6]$/)
+
+      column = input.to_i
+    end
+    column
+  end
+
   def check_horizontal_streak(row, column, symbol, prev_column = nil)
     square = board[row][column]
     # Base Case
