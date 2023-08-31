@@ -103,4 +103,30 @@ describe ConnectFour do
       end
     end
   end
+
+  describe '#board_full?' do
+    # The board will be full when the top row is filled with symbols
+    context 'when the top row is not completely filled' do
+      subject(:game_not_full) { described_class.new }
+      before do
+        game_not_full.board[0] = Array.new(7, '♦')
+        game_not_full.board[0][4] = ' '
+      end
+
+      it 'returns false' do
+        expect(game_not_full.board_full?).to be false
+      end
+
+      context 'when the top row is completely filled' do
+        subject(:game_full) { described_class.new }
+        before do
+          game_full.board[0] = Array.new(7, '♦')
+        end
+
+        it 'returns true' do
+          expect(game_full.board_full?).to be false
+        end
+      end
+    end
+  end
 end
