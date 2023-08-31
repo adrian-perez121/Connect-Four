@@ -2,7 +2,7 @@
 
 # ConnectFour Class
 class ConnectFour
-  attr_accessor :board, :game_over
+  attr_accessor :board, :game_over, :target_coordinates
 
   def create_board
     Array.new(6) { Array.new(7, ' ') }
@@ -15,6 +15,7 @@ class ConnectFour
   def initialize
     @board = create_board
     @game_over = false
+    @target_coordinates = nil
   end
 
   def show_board
@@ -37,6 +38,7 @@ class ConnectFour
       square = board[row][column]
     end
     board[row][column] = '♦'
+    @target_coordinates = [row, column]
   end
 
   def add_empty(column)
@@ -49,6 +51,7 @@ class ConnectFour
       square = board[row][column]
     end
     board[row][column] = '♢'
+    @target_coordinates = [row, column]
   end
 
   def player_input
