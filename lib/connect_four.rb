@@ -13,6 +13,7 @@ class ConnectFour
   end
 
   def initialize
+    puts 'Hello, and welcome to Connect Four!'
     @board = create_board
     @game_over = false
   end
