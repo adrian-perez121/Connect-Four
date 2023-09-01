@@ -84,7 +84,7 @@ describe ConnectFour do
       let(:row) { 2 }
       let(:column) { 0 }
       before do
-        4.times { game_streak.add_full(0) }
+        4.times { game_streak.add_symbol(0, '♦') }
       end
 
       it 'returns 4' do
@@ -97,8 +97,8 @@ describe ConnectFour do
       let(:row) { 1 }
       let(:column) { 0 }
       before do
-        2.times { game_streak.add_empty(0) }
-        3.times { game_streak.add_full(0) }
+        2.times { game_streak.add_symbol(0, '♢') }
+        3.times { game_streak.add_symbol(0, '♦') }
       end
       it 'returns 3' do
         expect(game_streak.check_vertical_streak(row, column, symbol)).to eq(3)
@@ -109,7 +109,7 @@ describe ConnectFour do
       subject(:game_streak) { described_class.new }
       let(:row) { 5 }
       let(:column) { 0 }
-      before { game_streak.add_full(0) }
+      before { game_streak.add_symbol(0, '♦') }
 
       it 'returns 1' do
         expect(game_streak.check_vertical_streak(row, column, symbol)).to eq(1)

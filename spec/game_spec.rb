@@ -18,110 +18,60 @@ describe ConnectFour do
     end
   end
 
-  describe '#add_full' do
+  describe '#add_symbol' do
     # Three different cases where the black symbol could be added
     # 5th row indicates the bottom of the board
     # 0th row indicates the top of the board
+    # Symbol switching functionality tested throughout
 
     context 'when there is nothing at the bottom of the board' do
-      subject(:game_full) { described_class.new }
+      subject(:game_beginning) { described_class.new }
       let(:column) { 5 }
       let(:row) { 5 }
-      before { game_full.add_full(5) }
+      let(:symbol) { '♦' }
+      before { game_beginning.add_symbol(5, symbol) }
       it 'symbol reaches the bottom' do
-        square = game_full.board[row][column]
-        expect(square).to eq('♦')
+        square = game_beginning.board[row][column]
+        expect(square).to eq(symbol)
       end
       it 'target coordinates should be set to location of symbol' do
-        expect(game_full.target_coordinates).to eq([row, column])
+        expect(game_beginning.target_coordinates).to eq([row, column])
       end
     end
 
     context 'when there is already a symbol occupying a square' do
-      subject(:game_full) { described_class.new }
+      subject(:on_top) { described_class.new }
       let(:column) { 5 }
       let(:row) { 4 }
+      let(:symbol) { '♢' }
       before do
-        game_full.add_full(5)
-        game_full.add_full(5)
+        on_top.add_symbol(5, symbol)
+        on_top.add_symbol(5, symbol)
       end
       it 'the symbol falls on top of the square being occupied' do
-        square = game_full.board[row][column]
-        expect(square).to eq('♦')
+        square = on_top.board[row][column]
+        expect(square).to eq(symbol)
       end
       it 'target coordinates should be set to location of symbol' do
-        expect(game_full.target_coordinates).to eq([row, column])
+        expect(on_top.target_coordinates).to eq([row, column])
       end
     end
 
     context 'when there is no room left to add the symbol' do
-      subject(:game_full) { described_class.new }
+      subject(:column_full) { described_class.new }
       let(:row) { 5 }
       let(:column) { 3 }
+      let(:symbol) { '♦' }
       before do
         # To fill up the column (assuming previous tests pass)
-        6.times { game_full.add_full(5) }
-        allow(game_full).to receive(:player_input).and_return(3)
+        6.times { column_full.add_symbol(5, symbol) }
+        allow(column_full).to receive(:player_input).and_return(3)
       end
       it '#out_bounds_message is called and new input is used' do
-        expect(game_full).to receive(:out_bounds_message).once
-        game_full.add_full(5)
-        square = game_full.board[row][column]
-        expect(square).to eq('♦')
-      end
-    end
-  end
-
-  describe '#add_empty' do
-    # Similar to the test for add_full
-    context 'when there is nothing on the bottom of the board' do
-      subject(:game_empty) { described_class.new }
-      let(:column) { 3 }
-      let(:row) { 5 }
-      before { game_empty.add_empty(3) }
-      it 'reaches the bottom' do
-        square = game_empty.board[row][column]
-        expect(square).to eq('♢')
-      end
-      it 'target coordinates are at the location of the symbol' do
-        expect(game_empty.target_coordinates).to eq([row, column])
-      end
-    end
-
-    context 'when there is already a symbol occupying a square' do
-      subject(:game_empty) { described_class.new }
-      let(:column) { 3 }
-      let(:row) { 4 }
-      before do
-        game_empty.add_empty(3)
-        game_empty.add_empty(3)
-      end
-
-      it 'symbol falls on top of the square being occupied' do
-        square = game_empty.board[row][column]
-        expect(square).to eq('♢')
-      end
-
-      it 'when there is already a symbol occupying a square' do
-        expect(game_empty.target_coordinates).to eq([row, column])
-      end
-    end
-
-    context 'when there is no room left to add the symbol' do
-      subject(:game_empty) { described_class.new }
-      let(:row) { 5 }
-      let(:column) { 4 }
-      before do
-        # To fill up the column (assuming previous tests pass)
-        6.times { game_empty.add_empty(3) }
-        allow(game_empty).to receive(:player_input).and_return(4) # Simulating the player inputting a new column
-      end
-
-      it '#out_of_bounds message is called and new input is used' do
-        expect(game_empty).to receive(:out_bounds_message).once
-        game_empty.add_empty(3)
-        square = game_empty.board[row][column]
-        expect(square).to eq('♢')
+        expect(column_full).to receive(:out_bounds_message).once
+        column_full.add_symbol(5, symbol)
+        square = column_full.board[row][column]
+        expect(square).to eq(symbol)
       end
     end
   end

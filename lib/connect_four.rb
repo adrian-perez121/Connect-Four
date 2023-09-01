@@ -60,7 +60,7 @@ class ConnectFour
     puts ' 0  1  2  3  4  5  6 ' # The footer of the game
   end
 
-  def add_full(column)
+  def add_symbol(column, symbol)
     row = 5
     out_bounds_message unless column_empty?(column)
     column = player_input until column_empty?(column)
@@ -71,21 +71,7 @@ class ConnectFour
 
       square = board[row][column]
     end
-    board[row][column] = '♦'
-    @target_coordinates = [row, column]
-  end
-
-  def add_empty(column)
-    row = 5
-    out_bounds_message unless column_empty?(column)
-    column = player_input until column_empty?(column)
-    square = board[row][column]
-    until square == ' '
-      row -= 1
-
-      square = board[row][column]
-    end
-    board[row][column] = '♢'
+    board[row][column] = symbol
     @target_coordinates = [row, column]
   end
 
@@ -194,5 +180,4 @@ class ConnectFour
   end
 end
 
-game = ConnectFour.new
-game.play
+
