@@ -12,10 +12,42 @@ class ConnectFour
     puts 'This column is full, try another column.'
   end
 
+  def play_intro_message
+    puts 'Hello! Welcome to connect four!'
+  end
+
   def initialize
     @board = create_board
     @game_over = false
     @target_coordinates = nil
+  end
+
+  def play
+    play_intro_message
+    show_board
+    loop do
+      puts "Full, it's your turn!"
+      add_full(player_input)
+      show_board
+      decide_game_over(target_coordinates[0], target_coordinates[1], '♦')
+      if @game_over
+        break unless continue_playing?
+
+        @board = create_board
+        show_board
+      end
+
+      puts "Empty, it's your turn!"
+      add_empty(player_input)
+      show_board
+      decide_game_over(target_coordinates[0], target_coordinates[1], '♢')
+      if @game_over
+        return unless continue_playing?
+
+        @board = create_board
+        show_board
+      end
+    end
   end
 
   def show_board
@@ -161,3 +193,6 @@ class ConnectFour
     end
   end
 end
+
+game = ConnectFour.new
+game.play
