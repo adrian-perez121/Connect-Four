@@ -35,7 +35,6 @@ describe ConnectFour do
       it 'target coordinates should be set to location of symbol' do
         expect(game_full.target_coordinates).to eq([row, column])
       end
-
     end
 
     context 'when there is already a symbol occupying a square' do
@@ -57,13 +56,18 @@ describe ConnectFour do
 
     context 'when there is no room left to add the symbol' do
       subject(:game_full) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 3 }
       before do
         # To fill up the column (assuming previous tests pass)
         6.times { game_full.add_full(5) }
+        allow(game_full).to receive(:player_input).and_return(3)
       end
-      it '#out_bounds_message is called' do
+      it '#out_bounds_message is called and new input is used' do
         expect(game_full).to receive(:out_bounds_message).once
         game_full.add_full(5)
+        square = game_full.board[row][column]
+        expect(square).to eq('♦')
       end
     end
   end
@@ -105,14 +109,19 @@ describe ConnectFour do
 
     context 'when there is no room left to add the symbol' do
       subject(:game_empty) { described_class.new }
+      let(:row) { 5 }
+      let(:column) { 4 }
       before do
         # To fill up the column (assuming previous tests pass)
         6.times { game_empty.add_empty(3) }
+        allow(game_empty).to receive(:player_input).and_return(4) # Simulating the player inputting a new column
       end
 
-      it '#out_of_bounds message is called' do
+      it '#out_of_bounds message is called and new input is used' do
         expect(game_empty).to receive(:out_bounds_message).once
         game_empty.add_empty(3)
+        square = game_empty.board[row][column]
+        expect(square).to eq('♢')
       end
     end
   end

@@ -30,10 +30,12 @@ class ConnectFour
 
   def add_full(column)
     row = 5
+    out_bounds_message unless column_empty?(column)
+    column = player_input until column_empty?(column)
     square = board[row][column]
+
     until square == ' '
       row -= 1
-      break out_bounds_message if row == -1
 
       square = board[row][column]
     end
@@ -43,15 +45,20 @@ class ConnectFour
 
   def add_empty(column)
     row = 5
+    out_bounds_message unless column_empty?(column)
+    column = player_input until column_empty?(column)
     square = board[row][column]
     until square == ' '
       row -= 1
-      break out_bounds_message if row == -1
 
       square = board[row][column]
     end
     board[row][column] = '♢'
     @target_coordinates = [row, column]
+  end
+
+  def column_empty?(column)
+    board[0][column] == ' '
   end
 
   def player_input
