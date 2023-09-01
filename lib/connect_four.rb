@@ -22,31 +22,22 @@ class ConnectFour
     @target_coordinates = nil
   end
 
+  def player_turn(symbol)
+    puts "#{symbol}, it's your turn!"
+    add_symbol(player_input, symbol)
+    show_board
+    decide_game_over(target_coordinates[0], target_coordinates[1], symbol)
+  end
+
   def play
     play_intro_message
     show_board
     loop do
-      puts "Full, it's your turn!"
-      add_full(player_input)
-      show_board
-      decide_game_over(target_coordinates[0], target_coordinates[1], '♦')
-      if @game_over
-        break unless continue_playing?
+      player_turn('♦')
+      break if game_over && !continue_playing?
 
-        @board = create_board
-        show_board
-      end
-
-      puts "Empty, it's your turn!"
-      add_empty(player_input)
-      show_board
-      decide_game_over(target_coordinates[0], target_coordinates[1], '♢')
-      if @game_over
-        return unless continue_playing?
-
-        @board = create_board
-        show_board
-      end
+      player_turn('♢')
+      break if game_over && !continue_playing?
     end
   end
 
@@ -170,6 +161,8 @@ class ConnectFour
     loop do
       answer = gets.chomp
       if answer == 'y'
+        @board = create_board
+        show_board
         return true
       elsif answer == 'n'
         return false
@@ -180,4 +173,6 @@ class ConnectFour
   end
 end
 
+game = ConnectFour.new
+game.play
 
